@@ -8,7 +8,6 @@ public class OtimizacaoMochila {
         int[][] dp = new int[n + 1][capacidade + 1];
         List<Produto> resultado = new ArrayList<>();
 
-        // Algoritmo da Mochila 0/1
         for (int i = 1; i <= n; i++) {
             Produto produto = produtos.get(i - 1);
             for (int w = 1; w <= capacidade; w++) {
@@ -20,7 +19,6 @@ public class OtimizacaoMochila {
             }
         }
 
-        // Recupera os itens selecionados
         int w = capacidade;
         for (int i = n; i > 0 && w > 0; i--) {
             if (dp[i][w] != dp[i - 1][w]) {
