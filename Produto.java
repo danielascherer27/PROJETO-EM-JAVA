@@ -13,6 +13,10 @@ public class Produto {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public int getQuantidade() {
         return quantidade;
     }
@@ -27,5 +31,10 @@ public class Produto {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + ", Quantidade: " + quantidade + ", Valor: R$" + String.format("%.2f", valor);
     }
 }
