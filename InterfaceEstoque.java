@@ -15,7 +15,7 @@ public class InterfaceEstoque extends JFrame {
     public InterfaceEstoque(Estoque estoque) {
         this.estoque = estoque;
         setTitle("Gerenciamento de Estoque");
-        setSize(800, 400);
+        setSize(950, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
