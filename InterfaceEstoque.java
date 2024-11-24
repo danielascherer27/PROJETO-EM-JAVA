@@ -7,8 +7,10 @@ import java.io.IOException;
 
 public class InterfaceEstoque extends JFrame {
     private Estoque estoque;
+    private Mochila mochila;
     private JTextArea areaTexto;
     private JTextArea areaHistorico;
+    private JTextArea areaResultadoOtimizacao;
 
     public InterfaceEstoque(Estoque estoque) {
         this.estoque = estoque;
@@ -25,6 +27,7 @@ public class InterfaceEstoque extends JFrame {
         JButton btnSair = new JButton("Sair");
         JButton btnVisualizar = new JButton("Visualizar Produtos");
         JButton btnHistorico = new JButton("Visualizar Histórico");
+        JButton btnOtimizarMochila = new JButton("Otimizar Mochila");
 
         areaTexto = new JTextArea(10, 30);
         areaTexto.setEditable(false);
@@ -34,12 +37,17 @@ public class InterfaceEstoque extends JFrame {
         areaHistorico.setEditable(false);
         JScrollPane scrollPaneHistorico = new JScrollPane(areaHistorico);
 
+        areaResultadoOtimizacao = new JTextArea(10, 25);
+        areaResultadoOtimizacao.setEditable(false);
+        JScrollPane scrollPaneResultado = new JScrollPane(areaResultadoOtimizacao);
+
         btnAdicionar.addActionListener(e -> adicionarProduto());
         btnAtualizar.addActionListener(e -> atualizarProduto());
         btnRemover.addActionListener(e -> removerProduto());
         btnSair.addActionListener(e -> System.exit(0));
         btnVisualizar.addActionListener(e -> visualizarProdutos());
         btnHistorico.addActionListener(e -> visualizarHistorico());
+        btnOtimizarMochila.addActionListener(e -> otimizarMochila());
 
         panelBotoes.add(btnAdicionar);
         panelBotoes.add(btnAtualizar);
@@ -47,44 +55,92 @@ public class InterfaceEstoque extends JFrame {
         panelBotoes.add(btnSair);
         panelBotoes.add(btnVisualizar);
         panelBotoes.add(btnHistorico);
+        panelBotoes.add(btnOtimizarMochila);
 
         add(panelBotoes, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
-
-        // Adicionando a area de historico
         JPanel panelHistorico = new JPanel();
         panelHistorico.setLayout(new BorderLayout());
         panelHistorico.add(scrollPaneHistorico, BorderLayout.CENTER);
         add(panelHistorico, BorderLayout.SOUTH);
-        carregarLogo();
-        definirMochila();
+        add(scrollPaneResultado, BorderLayout.EAST);
     }
 
-    private void carregarLogo() {
-        try {
-            File file = new File("PROJETOS-EM-JAVA/logo.jpg");
-            if (!file.exists()) {
-                JOptionPane.showMessageDialog(this, "Arquivo logo.jpg não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            BufferedImage logoImage = ImageIO.read(file);
-            int newWidth = Math.max(100, logoImage.getWidth() / 4);
-            int newHeight = Math.max(100, logoImage.getHeight() / 4);
-            Image scaledLogo = logoImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-            ImageIcon logoIcon = new ImageIcon(scaledLogo);
-
-            JLabel logoLabel = new JLabel(logoIcon);
-            JPanel panelLogo = new JPanel();
-            panelLogo.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            panelLogo.add(logoLabel);
-            add(panelLogo, BorderLayout.EAST);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar a imagem. Verifique o caminho e o formato do arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Erro ao carregar a imagem: " + e.getMessage());
+    private void otimizarMochila() {
+        if (mochila == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, defina as dimensões da mochila primeiro.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        OtimizacaoMochila otimizacao = new OtimizacaoMochila(estoque, mochila);
+        otimizacao.otimizar();
+
+        StringBuilder resultados = new StringBuilder("Itens escolhidos para a mochila:\n");
+        for (Produto produto : estoque.getProdutos()) {
+            if (produto.getQuantidadeEscolhida() > 0) {
+                resultados.append(produto.getNome())
+                        .append(" - Quantidade: ").append(produto.getQuantidadeEscolhida())
+                        .append(", Valor Total: R$ ").append(String.format("%.2f", produto.getQuantidadeEscolhida() * produto.getValor()))
+                        .append("\n");
+            }
+        }
+        double valorTotal = otimizacao.getValorTotal();
+        resultados.append("Valor total da mochila: R$ ").append(String.format("%.2f", valorTotal));
+        areaResultadoOtimizacao.setText(resultados.toString());
+
+        JOptionPane.showMessageDialog(this, "Otimização da mochila realizada com sucesso!");
     }
 
     private void definirMochila() {
+        while (true) {
+            try {
+                String comprimentoInput = JOptionPane.showInputDialog(this, "Digite o Comprimento da Mochila:");
+                if (comprimentoInput == null) {
+                    int escolha = JOptionPane.showConfirmDialog(this, "Sair do sistema?", "Confirmar saída", JOptionPane.YES_NO_OPTION);
+                    if (escolha == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    } else {
+                        continue;
+                    }
+                }
+                int mochilaComprimento = Integer.parseInt(comprimentoInput);
+
+                String alturaInput = JOptionPane.showInputDialog(this, "Digite a Altura da Mochila:");
+                if (alturaInput == null) {
+                    int escolha = JOptionPane.showConfirmDialog(this, "Você deseja sair do sistema?", "Confirmar saída", JOptionPane.YES_NO_OPTION);
+                    if (escolha == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    } else {
+                        continue;
+                    }
+                }
+                int mochilaAltura = Integer.parseInt(alturaInput);
+
+                String larguraInput = JOptionPane.showInputDialog(this, "Digite a Largura da Mochila:");
+                if (larguraInput == null) {
+                    int escolha = JOptionPane.showConfirmDialog(this, "Você deseja sair do sistema?", "Confirmar saída", JOptionPane.YES_NO_OPTION);
+                    if (escolha == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    } else {
+                        continue;
+                    }
+                }
+                int mochilaLargura = Integer.parseInt(larguraInput);
+
+                if (mochilaComprimento <= 0 || mochilaAltura <= 0 || mochilaLargura <= 0) {
+                    JOptionPane.showMessageDialog(this, "As dimensões da mochila devem ser positivas.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    continue;
+                }
+                mochila = new Mochila(mochilaComprimento, mochilaAltura, mochilaLargura);
+                JOptionPane.showMessageDialog(this, "Mochila configurada com sucesso!");
+                break;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Valor inválido. Certifique-se de digitar números.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+     /*private void definirMochila() {
         try {
             int mochilaComprimento = Integer.parseInt(JOptionPane.showInputDialog(this, "Digite o Comprimento da Mochila:"));
             int mochilaAltura = Integer.parseInt(JOptionPane.showInputDialog(this, "Digite a Altura da Mochila:"));
@@ -98,8 +154,7 @@ public class InterfaceEstoque extends JFrame {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido. Certifique-se de digitar números.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
+    }*/
 
     private void adicionarProduto() {
         String nomeProduto = JOptionPane.showInputDialog(this, "Digite o nome do produto:");
@@ -207,5 +262,6 @@ public class InterfaceEstoque extends JFrame {
         Estoque estoque = new Estoque(100);
         InterfaceEstoque interfaceEstoque = new InterfaceEstoque(estoque);
         interfaceEstoque.setVisible(true);
+        SwingUtilities.invokeLater(() -> interfaceEstoque.definirMochila());
     }
 }
