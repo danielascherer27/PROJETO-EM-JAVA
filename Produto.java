@@ -101,6 +101,7 @@ public class Produto {
         return densidade;
     }
 
+    // Corrigindo o setter para a densidade
     public void setDensidade(double densidade) {
         this.densidade = densidade;
     }

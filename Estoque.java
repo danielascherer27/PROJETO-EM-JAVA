@@ -23,7 +23,18 @@ public class Estoque {
     public boolean adicionarProduto(Produto produto) {
         if (produtos.size() < capacidadeMaxima) {
             produtos.add(produto);
-            historico.add(new HistoricoAlteracao("Adição", produto.getNome(), "Produto adicionado"));
+            adicionarHistorico("Adição", produto.getNome(), "Produto adicionado ao estoque");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean atualizarProduto(String nomeProduto, Produto novoProduto) {
+        Produto produtoExistente = buscarProduto(nomeProduto);
+        if (produtoExistente != null) {
+            int index = produtos.indexOf(produtoExistente);
+            produtos.set(index, novoProduto);
+            adicionarHistorico("Atualização", nomeProduto, "Produto atualizado no estoque");
             return true;
         }
         return false;
@@ -33,7 +44,7 @@ public class Estoque {
         Produto produto = buscarProduto(nomeProduto);
         if (produto != null) {
             produtos.remove(produto);
-            historico.add(new HistoricoAlteracao("Remoção", produto.getNome(), "Produto removido"));
+            adicionarHistorico("Remoção", produto.getNome(), "Produto removido do estoque");
             return true;
         }
         return false;
@@ -50,5 +61,13 @@ public class Estoque {
 
     public void adicionarHistorico(String operacao, String nomeProduto, String descricao) {
         historico.add(new HistoricoAlteracao(operacao, nomeProduto, descricao));
+    }
+
+    public int getCapacidadeMaxima() {
+        return capacidadeMaxima;
+    }
+
+    public void setCapacidadeMaxima(int capacidadeMaxima) {
+        this.capacidadeMaxima = capacidadeMaxima;
     }
 }
