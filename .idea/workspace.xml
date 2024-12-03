@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78ba46d8-e8ff-42fa-ad73-b47b72863f1e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Estoque.java" beforeDir="false" afterPath="$PROJECT_DIR$/Estoque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InterfaceEstoque.java" beforeDir="false" afterPath="$PROJECT_DIR$/InterfaceEstoque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Produto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Produto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/Estoque.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/Estoque.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/InterfaceEstoque.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/InterfaceEstoque.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/OtimizacaoMochila.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/OtimizacaoMochila.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/Produto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/Produto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BancoDeDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/BancoDeDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrama de Classe.asta.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJETOS-EM-JAVA/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,14 +52,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
